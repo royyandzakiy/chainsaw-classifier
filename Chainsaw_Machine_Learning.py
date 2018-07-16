@@ -53,7 +53,7 @@ def main():
             
         print("train_X length: ", len(train_X))
         
-        if (count >= 1):
+        if (count >= 10):
             break
        
     gmm = GaussianMixture(n_components=4).fit(train_X, train_y)

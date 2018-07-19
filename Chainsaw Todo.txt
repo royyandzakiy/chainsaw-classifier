@@ -1,0 +1,49 @@
+what im currently doing:
+
+#1) Android Audio Recognition (selasa)
+- goal: buat app serupa tapi dengan custom label dan custom model .pb
+- next: pelajari cara kerja app SpeechAcitivty, coba buat ulang di aplikasi watcher dg copy-pasting, bisa melakukan sound recognition, ganti label & model .pb dengan yg sudah dibuat, bisa melakukan custom sound recognition	
+
+#2) Ka Taufic (rabu beres)
+- goal: ekstrak fitur & build model suara gergaji mesin
+- cara mengekstrak fitur dengan benar
+- cari tau gmn cara periksa kualitas prediction
+- apakah durasi hrs sama semua?
+- apakah pake window apa nggak
+- apakah hrs tetep pake python atau cb bikin pake java biar nnt sekalian
+- tes#1: label salah, 
+- tes#2: label benar, 
+
+#3) download datasets
+- goal: tambah dataset utk pembangunan model
+- ambil sebanyak mungkin suara gergaji mesin (baik audio langsung maupun dari video yg di convert ke .wav)
+- tentukan ukuran lama audio tiap .wav (samakan semua)
+- target: 1000 file .wav suara gergaji mesin + 3000 file .wav lain
+- next: buat format standar utk .wav yg akan diolah, cari web utk download, preprocess dataset sprt yg dijelaskan diatas
+
+=====
+
+## link penting:
+- G:\Project Coding\Android Studio\TheSentinel\tensorflow\tensorflow\examples\speech_commands
+- G:\tmp
+
+#4) Simple Audio Recognition (DONE)
+- goal: learn how to machine learn > generate .pb models
+- mencoba bgmn sih training yg intensif dan menghasilkan suatu model. pelajari steps yang ditempuh. sampe akhirnya membentuk model dr checkpoint utk di freeze
+trying out tensorflow\...\speech_commands\train.py
+- next: ganti suara dan label dg gergaji mesin dan suara sekitar
+- hint:
+
+## training
+python tensorflow/examples/speech_commands/train.py --data-dir=/tmp/speech_dataset/
+
+## create forzen graph
+python tensorflow/examples/speech_commands/freeze.py \
+--start_checkpoint=/tmp/speech_commands_train/conv.ckpt-18000 \
+--output_file=/tmp/chainsaw_frozen_graph.pb
+
+## test
+python tensorflow/examples/speech_commands/label_wav.py \
+--graph=/tmp/chainsaw_frozen_graph.pb \
+--labels=/tmp/speech_commands_train/conv_labels.txt \
+--wav=/tmp/speech_dataset/left/a5d485dc_nohash_0.wav
